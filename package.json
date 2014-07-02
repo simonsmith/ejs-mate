@@ -3,24 +3,24 @@
   "contributors": [
     "Robert Sköld <robert@publicclass.se> (http://publicclass.se)"
   ],
-  "name": "ejs-locals",
-  "description": "Express 3.x locals for layout, partial and blocks.",
+  "name": "ejs-mate",
+  "description": "Express 4.x locals for layout, partial.",
   "version": "1.0.2",
   "repository": {
     "type": "git",
-    "url": "git://github.com/randometc/ejs-locals.git"
+    "url": "git://github.com/randometc/ejs-mate.git"
   },
   "homepage": "https://github.com/randometc/ejs-locals",
   "engines": {
-    "node": ">=0.6.0"
+    "node": ">=0.10.0"
   },
   "dependencies": {
-    "ejs": "0.8.x"
+    "ejs": "1.0.0"
   },
   "devDependencies": {
     "express": "~3.0.0",
     "mocha": "*",
-    "should": "*",
+    "should": "~3.0.0",
     "methods": "0.0.1"
   },
   "scripts": {

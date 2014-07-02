@@ -68,22 +68,11 @@ var renderFile = module.exports = function(file, options, fn){
     options.locals = {};
   }
 
-  if (!options.locals.blocks) {
-    // one set of blocks no matter how often we recurse
-    var blocks = { scripts: new Block(), stylesheets: new Block() };
-    options.locals.blocks = blocks;
-    options.locals.scripts = blocks.scripts;
-    options.locals.stylesheets = blocks.stylesheets;
-    options.locals.block = block.bind(blocks);
-    options.locals.stylesheet = stylesheet.bind(blocks.stylesheets);
-    options.locals.script = script.bind(blocks.scripts);
-  }
   // override locals for layout/partial bound to current options
   options.locals.layout  = layout.bind(options);
   options.locals.partial = partial.bind(options);
 
   ejs.renderFile(file, options, function(err, html) {
-
     if (err) {
       return fn(err,html);
     }
@@ -118,12 +107,8 @@ var renderFile = module.exports = function(file, options, fn){
       // make sure caching works inside ejs.renderFile/render
       delete options.filename;
 
-      if (layout.length > 0 && layout[0] === path.sep) {
-        // if layout is an absolute path, find it relative to view options:
-        layout = join(options.settings.views, layout.slice(1));
-      } else {
-        // otherwise, find layout path relative to current template:
-        layout = resolve(dirname(file), layout);
+      if (layout.length > 0) {
+        layout = join(options.settings.views, layout);
       }
 
       // now recurse and use the current result as `body` in the layout:
@@ -392,65 +377,3 @@ function partial(view, options){
 function layout(view){
   this.locals._layoutFile = view;
 }
-
-function Block() {
-  this.html = [];
-}
-
-Block.prototype = {
-  toString: function() {
-    return this.html.join('\n');
-  },
-  append: function(more) {
-    this.html.push(more);
-  },
-  prepend: function(more) {
-    this.html.unshift(more);
-  },
-  replace: function(instead) {
-    this.html = [ instead ];
-  }
-};
-
-/**
- * Return the block with the given name, create it if necessary.
- * Optionally append the given html to the block.
- *
- * The returned Block can append, prepend or replace the block,
- * as well as render it when included in a parent template.
- *
- * @param  {String} name
- * @param  {String} html
- * @return {Block}
- * @api private
- */
-function block(name, html) {
-  // bound to the blocks object in renderFile
-  var blk = this[name];
-  if (!blk) {
-    // always create, so if we request a
-    // non-existent block we'll get a new one
-    blk = this[name] = new Block();
-  }
-  if (html) {
-    blk.append(html);
-  }
-  return blk;
-}
-
-// bound to scripts Block in renderFile
-function script(path, type) {
-  if (path) {
-    this.append('<script src="'+path+'"'+(type ? 'type="'+type+'"' : '')+'></script>');
-  }
-  return this;
-}
-
-// bound to stylesheets Block in renderFile
-function stylesheet(path, media) {
-  if (path) {
-    this.append('<link rel="stylesheet" href="'+path+'"'+(media ? 'media="'+media+'"' : '')+' />');
-  }
-  return this;
-}
-

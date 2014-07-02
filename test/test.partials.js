@@ -24,17 +24,17 @@ app.get('/',function(req,res,next){
 app.get('/blog',function(req,res,next){
   res.render('blog/home.ejs', {
     _layoutFile:false,
-    user: { name: 'Tom' }, 
-    posts: [ 
-      { 
-        text: '1', 
-        comments: [ { text: '1.1' }, { text: '1.2' } ] 
-      }, 
-      { 
-        text: '2', 
-        comments: [ { text: '2.1' }, { text: '2.2' }, { text: '2.3' } ] 
-      } 
-    ]    
+    user: { name: 'Tom' },
+    posts: [
+      {
+        text: '1',
+        comments: [ { text: '1.1' }, { text: '1.2' } ]
+      },
+      {
+        text: '2',
+        comments: [ { text: '2.1' }, { text: '2.2' }, { text: '2.3' } ]
+      }
+    ]
   })
 })
 
@@ -104,10 +104,6 @@ app.get('/with-absolute-sub-include',function(req,res,next){
 
 app.get('/with-include-there',function(req,res,next){
   res.render('with-include.ejs',{_layoutFile:false});
-})
-
-app.get('/with-blocks',function(req,res,next){
-  res.render('with-blocks.ejs',{_layoutFile:false});
 })
 
 app.get('/deep-inheritance',function(req,res,next){
@@ -378,18 +374,6 @@ describe('app',function(){
     })
   })
 
-  describe('GET /with-blocks',function(){
-    it('should arrange blocks into layout-with-blocks.ejs when rendering with-blocks.ejs',function(done){
-      request(app)
-        .get('/with-blocks')
-        .end(function(res){
-          res.should.have.status(200);
-          res.body.should.equal('<li><a href="hello.html">there</a></li><p>What\'s up?</p>© 2012');
-          done();
-        })
-    })
-  })
-
   describe('GET /deep-inheritance',function(){
     it('should recurse and keep applying layouts until done',function(done){
       request(app)
@@ -397,18 +381,6 @@ describe('app',function(){
         .end(function(res){
           res.should.have.status(200);
           res.body.should.equal('<html><head><title>ejs-locals</title></head><body><i>I am grandchild content.</i><b>I am child content.</b><u>I am parent content.</u></body></html>');
-          done();
-        })
-    })
-  })
-
-  describe('GET /deep-inheritance-blocks',function(){
-    it('should recurse and keep applying blocks to layouts until done',function(done){
-      request(app)
-        .get('/deep-inheritance-blocks')
-        .end(function(res){
-          res.should.have.status(200);
-          res.body.should.equal('<html><head><title>ejs-locals</title><script src="gc.js"></script>\n<script src="c.js"></script><link rel="stylesheet" href="gc.css" />\n<link rel="stylesheet" href="c.css" /></head><body><i>I am grandchild content.</i><b>I am child content.</b><u>I am parent content.</u></body></html>');
           done();
         })
     })
@@ -432,7 +404,7 @@ describe('app',function(){
         .get('/subfolder/subitem-with-layout')
         .end(function(res){
           res.should.have.status(200);
-          res.body.should.equal('<html><head><title>ejs-locals sub-layout</title></head><body><h1>Index</h1></body></html>');
+          res.body.should.equal('<html><head><title>ejs-locals sub-layout</title></head><body><h1>Index</h1>\n</body></html>\n');
           done();
         })
     })
