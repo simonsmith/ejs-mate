@@ -1,22 +1,16 @@
-# ejs-locals
-
-## Status
-
-This library is *unmaintained*, sorry. I recommend a fully-featured and actively-maintained 
-alternative such as https://github.com/linkedin/dustjs or https://github.com/baryshev/ect
+# ejs-mate
 
 ## About
 
-Express 3.x `layout`, `partial` and `block` template functions for the EJS template engine. 
+Express 4.x `layout`, `partial` and `block` template functions for the EJS template engine.
 
 Previously also offered `include` but you should use EJS 0.8.x's own method for that now.
 
 ## Installation
 
-    $ npm install ejs-locals --save
+    $ npm install ejs-mate --save
 
 (`--save` automatically writes to your `package.json` file, tell your friends)
-
 
 ## Usage
 
@@ -25,11 +19,7 @@ Run `node app.js` from `examples` and open `localhost:3000` to see a working exa
 Given a template, `index.ejs`:
 
     <% layout('boilerplate') -%>
-    <% script('foo.js') -%>
-    <% stylesheet('foo.css') -%>
     <h1>I am the <%=what%> template</h1>
-    <% block('header', "<p>I'm in the header.</p>") -%>
-    <% block('footer', "<p>I'm in the footer.</p>") -%>
 
 And a layout, `boilerplate.ejs`:
 
@@ -37,29 +27,21 @@ And a layout, `boilerplate.ejs`:
     <html>
       <head>
         <title>It's <%=who%></title>
-        <%-scripts%>
-        <%-stylesheets%>
       </head>
       <body>
-        <header>
-          <%-blocks.header%>
-        </header>
         <section>
           <%-body -%>
         </section>
-        <footer>
-          <%-blocks.footer%>
-        </footer>
       </body>
     </html>
 
 When rendered by an Express 3.0 app:
 
     var express = require('express')
-      , engine = require('ejs-locals')
+      , engine = require('ejs-mate')
       , app = express();
 
-    // use ejs-locals for all ejs templates:
+    // use ejs-mate for all ejs templates:
     app.engine('ejs', engine);
 
     app.set('views',__dirname + '/views');
@@ -108,21 +90,6 @@ When called anywhere inside a template, requests that the output of the current 
 When called anywhere inside a template, adds the given view to that template using the current given `optionsOrCollection`. The usual way to use this is to pass an Array as the collection argument. The given view is then executed for each item in the Array; the item is passed into the view as a local with a name generated from the view's filename.
 
 For example, if you do `<%-partial('thing',things)%>` then each item in the `things` Array is passed to `thing.ejs` with the name `thing`. If you rename the template, the local name of each item will correspond to the template name.
-
-### `block(name,html)`
-
-When called anywhere inside a template, adds the given html to the named block. In the layout you can then do `<%-block('foo')%> to render all the html for that block.
-
-Since this relies on javascript strings, and bypasses EJS's default escaping, you should be very careful if you use this function with user-submitted data.
-
-### `script(src,type)`
-
-A convenience function for `block('scripts', '<script src="src.js"></script>')` with optional type. When called anywhere inside a template, adds a script tag with the given src/type to the scripts block. In the layout you can then do `<%-scripts%> to output the scripts from all the child templates.
-
-### `stylesheet(href,media)`
-
-A convenience function for `block('stylesheets', '<link rel="stylesheet" href="href.css" />')` with optional media type. When called anywhere inside a template, adds a link tag for the stylesheet with the given href/media to the stylesheets block. In the layout you can then do `<%-stylesheets%> to output the links from all the child templates.
-
 
 ## Template Support
 
