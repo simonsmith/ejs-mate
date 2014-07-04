@@ -26,7 +26,7 @@
     "methods": "0.0.1"
   },
   "scripts": {
-    "test": "mocha -r should -R spec"
+    "test": "./node_modules/.bin/mocha -r should -R spec"
   },
   "bugs": {
     "url": "https://github.com/JacksonTian/ejs-mate/issues"
