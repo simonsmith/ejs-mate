@@ -138,11 +138,16 @@ app.get('/filters-custom',function(req,res,next){
   res.render('filters-custom.ejs', { hello: 'hello' });
 })
 
+app.get('/with-blocks', function(req, res) {
+  res.render('with-blocks.ejs', {_layoutFile:false})
+})
+
 // override the default error handler so it doesn't log to console:
 app.use(function(err,req,res,next) {
   // console.log(err.stack);
   res.send(500, err.stack);
 })
+
 
 describe('app',function(){
 
@@ -443,6 +448,18 @@ describe('app',function(){
           res.body.should.equal('<html><head><title>ejs-locals</title></head><body><h1>HELLO</h1><h1>(hello)</h1></body></html>');
           done();
         })
+    })
+  })
+
+  describe('GET /with-blocks',function(){
+    it('should arrange blocks into layout-with-blocks.ejs when rendering with-blocks.ejs',function(done){
+      request(app)
+          .get('/with-blocks')
+          .end(function(res){
+            res.should.have.status(200);
+            res.body.should.equal('<li><a href="hello.html">there</a></li><p>What\'s up?</p>© 2012');
+            done();
+          })
     })
   })
 
