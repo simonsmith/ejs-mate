@@ -19,8 +19,8 @@ function Request(app) {
   this.header = {};
   this.app = app;
   if (!this.server) {
-    this.server = http.Server(app);
-    this.server.listen(0, function(){
+    this.server = http.createServer(app);
+    this.server.listen(0, '127.0.0.1', function(){
       self.addr = self.server.address();
       self.listening = true;
     });
