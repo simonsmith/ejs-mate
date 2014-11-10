@@ -92,6 +92,38 @@ When called anywhere inside a template, adds the given view to that template usi
 
 For example, if you do `<%-partial('thing',things)%>` then each item in the `things` Array is passed to `thing.ejs` with the name `thing`. If you rename the template, the local name of each item will correspond to the template name.
 
+### `block('name')`
+
+Calling `block('name')` creates the named block if it doesn't exist, and then returns an object with `append()`, `prepend()`, `replace()`, and `toString()`.
+
+Basic usage:
+
+body-template.ejs
+```
+<% layout('boilerplate') -%>
+<% block('head').append('<link type="text/css" href="/foo.css">') %>
+<h1>I am the template</h1>
+<% block('footer').append('<script src="/bar.js"></script>') %>
+```
+
+And a layout, `boilerplate.ejs`:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>I'm the layout</title>
+    <%- block('head').toString() %>
+  </head>
+  <body>
+    <section>
+      <%-body -%>
+    </section>
+    <%= block('footer').toString() %>
+  </body>
+</html>
+```
+
 ## Running Tests
 
 To run the test suite first invoke the following command within the repo, installing the development dependencies:
