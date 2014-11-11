@@ -45,7 +45,7 @@ When rendered by an Express 4.0 app:
 
 ```js
 var express = require('express'),
-  engine = require('../'),
+  engine = require('ejs-mate'),
   app = express();
 
 // use ejs-locals for all ejs templates:
