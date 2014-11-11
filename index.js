@@ -68,6 +68,13 @@ var renderFile = module.exports = function(file, options, fn){
     options.locals = {};
   }
 
+  if (!options.locals.blocks) {
+    // one set of blocks no matter how often we recurse
+    var blocks = {};
+    options.locals.blocks = blocks;
+    options.locals.block = block.bind(blocks);
+  }
+
   // override locals for layout/partial bound to current options
   options.locals.layout  = layout.bind(options);
   options.locals.partial = partial.bind(options);
@@ -376,4 +383,49 @@ function partial(view, options){
  */
 function layout(view){
   this.locals._layoutFile = view;
+}
+
+
+function Block() {
+  this.html = [];
+}
+Block.prototype = {
+  toString: function() {
+    return this.html.join('\n');
+  },
+  append: function(more) {
+    this.html.push(more);
+  },
+  prepend: function(more) {
+    this.html.unshift(more);
+  },
+  replace: function(instead) {
+    this.html = [ instead ];
+  }
+};
+
+/**
+ * Return the block with the given name, create it if necessary.
+ * Optionally append the given html to the block.
+ *
+ * The returned Block can append, prepend or replace the block,
+ * as well as render it when included in a parent template.
+ *
+ * @param {String} name
+ * @param {String} html
+ * @return {Block}
+ * @api private
+ */
+function block(name, html) {
+// bound to the blocks object in renderFile
+  var blk = this[name];
+  if (!blk) {
+// always create, so if we request a
+// non-existent block we'll get a new one
+    blk = this[name] = new Block();
+  }
+  if (html) {
+    blk.append(html);
+  }
+  return blk;
 }
