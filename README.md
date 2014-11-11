@@ -20,7 +20,7 @@ Run `node app.js` from `examples` and open `localhost:3000` to see a working exa
 
 Given a template, `index.ejs`:
 
-```
+```html
 <% layout('boilerplate') -%>
 <h1>I am the <%=what%> template</h1>
 ```
@@ -43,7 +43,7 @@ And a layout, `boilerplate.ejs`:
 
 When rendered by an Express 4.0 app:
 
-```
+```js
 var express = require('express'),
   engine = require('../'),
   app = express();
