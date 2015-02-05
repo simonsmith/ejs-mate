@@ -4,7 +4,7 @@
 
 Express 4.x `layout`, `partial` and `block` template functions for the EJS template engine.
 
-Previously also offered `include` but you should use EJS 1.0.x's own method for that now.
+Previously also offered `include` but you should use EJS 1.0.x's own directive for that now.
 
 ## Installation
 
@@ -22,7 +22,7 @@ Given a template, `index.ejs`:
 
 ```html
 <% layout('boilerplate') -%>
-<h1>I am the <%=what%> template</h1>
+<h1>I am the <%= what %> template</h1>
 ```
 
 And a layout, `boilerplate.ejs`:
@@ -31,11 +31,11 @@ And a layout, `boilerplate.ejs`:
 <!DOCTYPE html>
 <html>
   <head>
-    <title>It's <%=who%></title>
+    <title>It's <%= who %></title>
   </head>
   <body>
     <section>
-      <%-body -%>
+      <%- body -%>
     </section>
   </body>
 </html>
@@ -142,7 +142,9 @@ $ npm test
 
 Previous versions of this library had an `include` function. This is now supported directly by EJS, albeit with a different syntax. For `ejs-locals` 1.0+ simply do:
 
-### `<% include path/view %>`
+```html
+<% include path/view %>
+```
 
 When called anywhere inside a template, this adds the given view to that template using the current options and locals. This is built-in to [EJS](https://github.com/visionmedia/ejs) 1.0+.
 
@@ -154,9 +156,11 @@ This library is a fork from Robert Tom Carden's [ejs-locals](https://github.com/
 
 (The MIT License)
 
-Copyright (c) 2012 Robert Sk&ouml;ld &lt;robert@publicclass.se&gt;
-Copyright (c) 2012 Tom Carden &lt;tom@tom-carden.co.uk&gt;
-Copyright (c) 2014 Jackson Tian &lt;shyvo1987@gmail.com&gt;
+Copyright (c) 2012 Robert Sköld <robert@publicclass.se>
+
+Copyright (c) 2012 Tom Carden <tom@tom-carden.co.uk>
+
+Copyright (c) 2014 Jackson Tian <shyvo1987@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
