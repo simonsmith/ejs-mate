@@ -200,7 +200,8 @@ function lookup(root, partial, options){
   var engine = options.settings['view engine'] || 'ejs'
     , desiredExt = '.' + engine
     , ext = extname(partial) || desiredExt
-    , key = [ root, partial, ext ].join('-');
+    , key = [ root, partial, ext ].join('-')
+    , partialPath = partial;
 
   if (options.cache && cache[key]) return cache[key];
 
@@ -224,13 +225,31 @@ function lookup(root, partial, options){
   partial = resolve(root, dir, base, 'index'+ext);
   if( exists(partial) ) return options.cache ? cache[key] = partial : partial;
 
+  // Try relative to the app views
+  if (!options._isRelativeToViews) {
+    var views = options.settings.views;
+    options._isRelativeToViews = true;
+
+    if (!Array.isArray(views)) {
+      views = [views];
+    }
+
+    for (var i = 0; i < views.length; i++) {
+      partial = lookup(views[i], partialPath, options);
+
+      if (partial) {
+        // reset state for when the partial has a partial lookup of its own
+        options._isRelativeToViews = false;
+
+        return partial;
+      }
+    }
+  }
+
   // FIXME:
   // * there are other path types that Express 2.0 used to support but
   //   the structure of the lookup involved View class methods that we
   //   don't have access to any more
-  // * we probaly need to pass the Express app's views folder path into
-  //   this function if we want to support finding partials relative to
-  //   it as well as relative to the current view
   // * we have no tests for finding partials that aren't relative to
   //   the calling view
 

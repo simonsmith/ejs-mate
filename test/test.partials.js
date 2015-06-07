@@ -140,12 +140,19 @@ app.get('/with-blocks', function(req, res) {
   res.render('with-blocks.ejs', {_layoutFile:false})
 })
 
+app.get('/partial-relative-to-app-views', function(req,res,next) {
+  res.render('path/to/relative-partial.ejs');
+})
+
+app.get('/deep-partial-relative-to-app-views', function(req,res,next) {
+  res.render('path/to/deep-partial.ejs', {hello: 'Hi'});
+})
+
 // override the default error handler so it doesn't log to console:
 app.use(function(err,req,res,next) {
   // console.log(err.stack);
-  res.send(500, err.stack);
+  res.status(500).send(err.stack);
 })
-
 
 describe('app',function(){
 
@@ -458,6 +465,30 @@ describe('app',function(){
             res.body.should.equal('<li><a href="hello.html">there</a></li><p>What\'s up?</p>© 2012');
             done();
           })
+    })
+  })
+
+  describe('GET /partial-relative-to-app-views',function(){
+    it('should render a partial relative to app views',function(done){
+      request(app)
+        .get('/partial-relative-to-app-views')
+        .end(function(res){
+          res.should.have.status(200);
+          res.body.should.equal('<html><head><title>ejs-locals</title></head><body><h1>Index</h1></body></html>');
+          done();
+        })
+    })
+  })
+
+  describe('GET /deep-partial-relative-to-app-views',function(){
+    it('should render a partial relative to app views nested within another partial',function(done){
+      request(app)
+        .get('/deep-partial-relative-to-app-views')
+        .end(function(res){
+          res.should.have.status(200);
+          res.body.should.equal('<html><head><title>ejs-locals</title></head><body><div><section><h1>Hi</h1></section></div></body></html>');
+          done();
+        })
     })
   })
 

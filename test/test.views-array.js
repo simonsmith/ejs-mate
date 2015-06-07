@@ -21,6 +21,18 @@ app.get('/views-array-thing',function(req,res,next){
   res.render('views-array.ejs')
 })
 
+app.get('/partial-relative-to-app-views', function(req,res,next) {
+  res.render('path/to/relative-partial.ejs');
+})
+
+app.get('/deep-partial-relative-to-app-views', function(req,res,next) {
+  res.render('subfolder/subpartial.ejs', {hello: 'You found me'});
+})
+
+app.get('/path/to/non-existent-partial',function(req,res,next){
+  res.render('path/to/non-existent-partial.ejs');
+})
+
 describe('app with views array',function(){
 
   describe('GET /views-array', function(){
@@ -42,6 +54,42 @@ describe('app with views array',function(){
         .end(function(res){
           res.should.have.status(200);
           res.body.should.equal('<html><head><title>ejs-locals</title></head><body><h1>Views Array</h1></body></html>');
+          done();
+        })
+    })
+  })
+
+  describe('GET /partial-relative-to-app-views',function(){
+    it('should render a partial relative to app views',function(done){
+      request(app)
+        .get('/partial-relative-to-app-views')
+        .end(function(res){
+          res.should.have.status(200);
+          res.body.should.equal('<html><head><title>ejs-locals</title></head><body><h1>Index</h1></body></html>');
+          done();
+        })
+    })
+  })
+
+  describe('GET /deep-partial-relative-to-app-views',function(){
+    it('should render a partial relative to app views nested within another partial',function(done){
+      request(app)
+        .get('/deep-partial-relative-to-app-views')
+        .end(function(res){
+          res.should.have.status(200);
+          res.body.should.equal('<html><head><title>ejs-locals</title></head><body><div><section><h1>You found me</h1></section></div></body></html>');
+          done();
+        })
+    })
+  })
+
+  describe('GET /path/to/non-existent-partial',function(){
+    it('should send 500 and error saying a partial was not found',function(done){
+      request(app)
+        .get('/path/to/non-existent-partial')
+        .end(function(res){
+          res.should.have.status(500);
+          res.body.should.include('Could not find partial non-existent');
           done();
         })
     })
