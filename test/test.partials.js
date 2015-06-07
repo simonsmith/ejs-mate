@@ -11,9 +11,7 @@ app.engine('ejs', engine);
 // if you want to load `layout.ejs` as the default layout
 // (this was the default in Express 2.0 so it's handy for
 // quick ports and upgrades)
-app.locals({
-  _layoutFile: true,
-})
+app.locals._layoutFile = true;
 
 app.locals.hello = 'there';
 

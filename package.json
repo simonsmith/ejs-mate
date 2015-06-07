@@ -20,7 +20,7 @@
     "ejs": "1.0.0"
   },
   "devDependencies": {
-    "express": "~3.0.0",
+    "express": "~4.10.0",
     "mocha": "*",
     "should": "~3.0.0",
     "methods": "0.0.1"

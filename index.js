@@ -115,7 +115,21 @@ var renderFile = module.exports = function(file, options, fn){
       delete options.filename;
 
       if (layout.length > 0) {
-        layout = join(options.settings.views, layout);
+        var views = options.settings.views;
+        var l = layout;
+
+        if (!Array.isArray(views)) {
+          views = [views];
+        }
+
+        for (var i = 0; i < views.length; i++) {
+          layout = join(views[i], l);
+
+          // use the first found layout
+          if (exists(layout)) {
+            break;
+          }
+        }
       }
 
       // now recurse and use the current result as `body` in the layout:
