@@ -1,5 +1,11 @@
 # ejs-mate
 
+## Status
+- [![NPM version](https://badge.fury.io/js/ejs-mate.png)](http://badge.fury.io/js/ejs-mate)
+- [![Build Status](https://travis-ci.org/JacksonTian/ejs-mate.png?branch=master)](https://travis-ci.org/JacksonTian/ejs-mate)
+- [![Dependencies Status](https://david-dm.org/JacksonTian/ejs-mate.png)](https://david-dm.org/JacksonTian/ejs-mate)
+- [![Coverage Status](https://coveralls.io/repos/JacksonTian/ejs-mate/badge.png)](https://coveralls.io/r/JacksonTian/ejs-mate)
+
 ## About
 
 Express 4.x `layout`, `partial` and `block` template functions for the EJS template engine.
