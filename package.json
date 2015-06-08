@@ -21,12 +21,17 @@
   },
   "devDependencies": {
     "express": "~4.10.0",
+    "supertest": "*",
     "mocha": "*",
     "should": "~3.0.0",
-    "methods": "0.0.1"
+    "travis-cov": "*",
+    "coveralls": "*",
+    "mocha-lcov-reporter": "*",
+    "istanbul": "*",
+    "methods": "*"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha -r should -R spec"
+    "test": "make test"
   },
   "bugs": {
     "url": "https://github.com/JacksonTian/ejs-mate/issues"
