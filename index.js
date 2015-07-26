@@ -60,7 +60,34 @@ var ejs = require('ejs')
  *
  */
 
-var renderFile = module.exports = function(file, options, fn){
+function compile(file, options, cb) {
+
+  // Express used to set options.locals for us, but now we do it ourselves
+  // (EJS does some __proto__ magic to expose these funcs/values in the template)
+  if (!options.locals) {
+    options.locals = {};
+  }
+
+  if (!options.locals.blocks) {
+    // one set of blocks no matter how often we recurse
+    var blocks = {};
+    options.locals.blocks = blocks;
+    options.locals.block = block.bind(blocks);
+  }
+
+  // override locals for layout/partial bound to current options
+  options.locals.layout  = layout.bind(options);
+  options.locals.partial = partial.bind(options);
+
+  try {
+    var fn = ejs.compile(file, options)
+    cb(null, fn.toString());
+  } catch(ex) {
+    cb(ex);
+  }
+}
+
+function renderFile(file, options, fn){
 
   // Express used to set options.locals for us, but now we do it ourselves
   // (EJS does some __proto__ magic to expose these funcs/values in the template)
@@ -462,3 +489,10 @@ function block(name, html) {
   }
   return blk;
 }
+
+renderFile.compile = compile;
+renderFile.partial = partial;
+renderFile.block = block;
+renderFile.layout = layout;
+
+module.exports = renderFile;
