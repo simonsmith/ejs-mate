@@ -28,7 +28,8 @@
     "coveralls": "*",
     "mocha-lcov-reporter": "*",
     "istanbul": "*",
-    "methods": "*"
+    "methods": "*",
+    "supertest": "^2.0.1"
   },
   "scripts": {
     "test": "make test"
@@ -36,7 +37,7 @@
   "bugs": {
     "url": "https://github.com/JacksonTian/ejs-mate/issues"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "directories": {
     "example": "example",
     "test": "test"
