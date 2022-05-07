@@ -2,7 +2,7 @@
 
 const express = require('express');
 const request = require('supertest');
-const engine = require('../');
+const engine = require('../lib');
 
 var app = express();
 app.set('views',[__dirname + '/fixtures', __dirname + '/fixtures/thing']);

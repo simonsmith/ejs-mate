@@ -23,17 +23,19 @@
     "coveralls": "*",
     "eslint": "^3.11.1",
     "express": "^4.10.0",
-    "istanbul": "*",
     "methods": "*",
     "mocha": "*",
     "mocha-lcov-reporter": "*",
+    "nyc": "^15.1.0",
     "should": "~3.0.0",
     "supertest": "^2.0.1",
     "travis-cov": "*"
   },
   "scripts": {
-    "test": "make test",
-    "lint": "eslint --fix lib test"
+    "lint": "eslint --fix lib test",
+    "test": "mocha --inline-diffs -b -R spec test/*.test.js",
+    "test-cov": "nyc -r=html -r=text -r=lcov npm run test",
+    "ci": "npm run lint && npm run test-cov && codecov"
   },
   "bugs": {
     "url": "https://github.com/JacksonTian/ejs-mate/issues"
