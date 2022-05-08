@@ -214,7 +214,6 @@ describe('app',function(){
         .get('/collection/_entry')
         .expect(200)
         .end(function(err, res) {
-
           res.body.should.equal('<html><head><title>ejs-locals</title></head><body><ul><li>one</li><li>two</li></ul></body></html>');
           done();
         });
@@ -236,7 +235,6 @@ describe('app',function(){
         .get('/collection/thing')
         .expect(200)
         .end(function(err, res) {
-
           res.body.should.equal('<html><head><title>ejs-locals</title></head><body><ul><li>one</li><li>two</li></ul></body></html>');
           done();
         });
