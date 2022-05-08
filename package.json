@@ -20,6 +20,7 @@
     "ejs": "^2.6.1"
   },
   "devDependencies": {
+    "codecov": "^3.8.3",
     "coveralls": "*",
     "eslint": "^8.15.0",
     "express": "^4.10.0",
@@ -28,8 +29,7 @@
     "mocha-lcov-reporter": "*",
     "nyc": "^15.1.0",
     "should": "~3.0.0",
-    "supertest": "^2.0.1",
-    "travis-cov": "*"
+    "supertest": "^2.0.1"
   },
   "scripts": {
     "lint": "eslint --fix lib test example",
