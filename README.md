@@ -1,7 +1,7 @@
 # ejs-mate
 
 ## Status
-[![NPM version](https://badge.fury.io/js/ejs-mate.png)](http://badge.fury.io/js/ejs-mate)
+[![npm version](https://badge.fury.io/js/ejs-mate.svg)](https://badge.fury.io/js/ejs-mate)
 [![Node.js CI](https://github.com/JacksonTian/ejs-mate/actions/workflows/node.js.yml/badge.svg)](https://github.com/JacksonTian/ejs-mate/actions/workflows/node.js.yml)
 [![codecov](https://codecov.io/gh/JacksonTian/ejs-mate/branch/master/graph/badge.svg?token=xQKwDgJpbe)](https://codecov.io/gh/JacksonTian/ejs-mate)
 
