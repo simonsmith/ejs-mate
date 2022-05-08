@@ -27,7 +27,7 @@
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "should": "~3.0.0",
-    "supertest": "^2.0.1"
+    "supertest": "^6.2.3"
   },
   "scripts": {
     "lint": "eslint --fix lib test example",
