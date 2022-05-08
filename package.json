@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "coveralls": "*",
-    "eslint": "^3.11.1",
+    "eslint": "^8.15.0",
     "express": "^4.10.0",
     "methods": "*",
     "mocha": "*",
@@ -32,7 +32,7 @@
     "travis-cov": "*"
   },
   "scripts": {
-    "lint": "eslint --fix lib test",
+    "lint": "eslint --fix lib test example",
     "test": "mocha --inline-diffs -b -R spec test/*.test.js",
     "test-cov": "nyc -r=html -r=text -r=lcov npm run test",
     "ci": "npm run lint && npm run test-cov && codecov"

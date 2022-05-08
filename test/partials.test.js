@@ -138,7 +138,7 @@ app.get('/deep-partial-relative-to-app-views', function(req,res) {
 });
 
 // override the default error handler so it doesn't log to console:
-app.use(function(err,req,res, next) {
+app.use(function(err, req, res, next) {
   console.log(err.stack);
   res.status(500).send(err.stack);
 });

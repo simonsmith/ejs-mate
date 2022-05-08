@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express'),
   engine = require('../'),
   app = express();
