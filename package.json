@@ -7,7 +7,7 @@
   ],
   "name": "@simonsmith/ejs-mate",
   "description": "Express 4.x locals for layout, partial.",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/JacksonTian/ejs-mate.git"
