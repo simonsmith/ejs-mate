@@ -1,18 +1,18 @@
 {
-  "author": "Jackson Tian <shyvo1987@gmail.com>",
+  "author": "Simon Smith <simonsmith@users.noreply.github.com>",
   "contributors": [
     "Jackson Tian <shyvo1987@gmail.com> (https://github.com/JacksonTian)",
     "Robert Sköld <robert@publicclass.se> (http://publicclass.se)",
     "Tom Carden <tom@tom-carden.co.uk>"
   ],
-  "name": "ejs-mate",
+  "name": "@simonsmith/ejs-mate",
   "description": "Express 4.x locals for layout, partial.",
   "version": "4.0.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/JacksonTian/ejs-mate.git"
   },
-  "homepage": "https://github.com/JacksonTian/ejs-mate",
+  "homepage": "https://github.com/simonsmith/ejs-mate",
   "engines": {
     "node": ">=10.0.0"
   },
@@ -34,7 +34,7 @@
     "ci": "npm run lint && npm run test-cov && codecov"
   },
   "bugs": {
-    "url": "https://github.com/JacksonTian/ejs-mate/issues"
+    "url": "https://github.com/simonsmith/ejs-mate/issues"
   },
   "main": "lib/index.js",
   "directories": {
